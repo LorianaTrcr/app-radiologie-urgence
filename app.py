@@ -89,10 +89,10 @@ st.sidebar.markdown("---")
 
 # 2. Disclaimer bien visible dans l'encadré rouge
 st.sidebar.error(
-    "⚕️ **DISCLAIMER CLINIQUE**\n\n"
-    "Cette application est un prototype de recherche académique. "
-    "Elle ne remplace en aucun cas l'analyse médicale expertisée d'un médecin radiologue. "
-    "Tout diagnostic doit être rigoureusement validé par un praticien."
+    "⚕️ **AVERTISSEMENT**\n\n"
+    "Cette application est un outil expérimental d'aide à la décision."
+    "Elle ne fournit pas de diagnostic médical et ne remplace pas l'expertise humaine."
+    "Les résultats doivent impérativement être validés par un médecin qualifié, qui conserve l'entière responsabilité médico-légale de l'analyse et de la prise en charge du patient."
 )
 
 st.sidebar.markdown("---")
