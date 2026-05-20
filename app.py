@@ -1,3 +1,7 @@
+import os
+# Streamlit Cloud : on force la suppression de la version OpenCV qui plante
+os.system("pip uninstall -y opencv-python")
+
 import streamlit as st
 import torch
 import numpy as np
