@@ -86,7 +86,7 @@ st.sidebar.error(
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("**Architecture :** ResNet-50 Fine-tuné")
-st.sidebar.markdown("**Hébergement Modèle :** Local (PC)")
+st.sidebar.markdown("**Hébergement Modèle :** GitHub")
 st.sidebar.markdown("**Classes cibles :** `fractured` | `not fractured`")
 
 # ── Page Principale ──
