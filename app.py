@@ -77,10 +77,10 @@ st.sidebar.markdown(
 st.sidebar.markdown("---")
 
 # 2. Disclaimer bien visible dans l'encadré bleu
-st.sidebar.info(
+st.sidebar.error(
     "⚕️ **DISCLAIMER CLINIQUE**\n\n"
     "Cette application est un prototype de recherche académique. "
-    "Elle ne remplace en aucun cas l'analyse médicale expertisée par un médecin radiologue. "
+    "Elle ne remplace en aucun cas l'analyse médicale expertisée d'un médecin radiologue. "
     "Tout diagnostic doit être rigoureusement validé par un praticien."
 )
 
@@ -166,3 +166,17 @@ if uploaded_file is not None:
 
 else:
     st.info("💡 En attente de données : Veuillez importer une radiographie.")
+
+# --- SECTION TOUJOURS VISIBLE - BAS DE PAGE ---
+st.markdown("---") # Petite ligne de séparation visuelle
+
+# st.expander crée le menu déroulant
+with st.expander("❓ Comment ça marche ? (Explication du modèle)"):
+    # st.info crée l'encadré bleu à l'intérieur
+    st.info("""
+    **Bienvenue sur notre outil d'IA en Radiologie.**
+    
+    1. **L'Analyse :** Lorsque vous envoyez une image, elle est lue par notre modèle **ResNet-50**, un réseau de neurones artificiels entraîné sur des milliers de radiographies (saines et fracturées).
+    2. **La Décision :** L'IA cherche des "motifs" (patterns) invisibles à l'œil nu qui correspondent à des fractures osseuses et calcule un score de confiance.
+    3. **L'Explicabilité (GradCAM) :** Parce qu'un médecin ne peut pas faire confiance à une "boîte noire", l'outil génère une carte de chaleur (heatmap). Les zones **rouges** vous montrent exactement où l'IA a "regardé" pour prendre sa décision !
+    """)
