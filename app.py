@@ -91,7 +91,7 @@ st.sidebar.markdown("---")
 st.sidebar.error(
     "⚕️ **AVERTISSEMENT**\n\n"
     "Cette application est un **outil expérimental** d'aide à la décision.\n\n"
-    "Elle ne fournit pas de diagnostic médical et ne remplace pas l'expertise humaine.\n"
+    "Elle ne fournit pas de diagnostic médical et ne remplace pas l'expertise humaine.\n\n"
     "Les résultats doivent impérativement être validés par un médecin qualifié, qui conserve l'entière responsabilité médico-légale de l'analyse et de la prise en charge du patient."
 )
 
