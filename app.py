@@ -141,7 +141,7 @@ if uploaded_file is not None:
             frac_prob = float(probs[FRACTURE_IDX])
             
             # --- EXPÉRIMENTATION (OPTION D) : SEUIL MODIFIÉ ---
-            SEUIL_URGENCE = 0.30
+            SEUIL_URGENCE = 0.40
             
             if frac_prob >= SEUIL_URGENCE:
                 pred_idx = FRACTURE_IDX
