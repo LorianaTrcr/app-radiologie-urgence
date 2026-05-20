@@ -90,8 +90,8 @@ st.sidebar.markdown("---")
 # 2. Disclaimer bien visible dans l'encadré rouge
 st.sidebar.error(
     "⚕️ **AVERTISSEMENT**\n\n"
-    "Cette application est un outil expérimental d'aide à la décision."
-    "Elle ne fournit pas de diagnostic médical et ne remplace pas l'expertise humaine."
+    "Cette application est un **outil expérimental** d'aide à la décision.\n\n"
+    "Elle ne fournit pas de diagnostic médical et ne remplace pas l'expertise humaine.\n\n"
     "Les résultats doivent impérativement être validés par un médecin qualifié, qui conserve l'entière responsabilité médico-légale de l'analyse et de la prise en charge du patient."
 )
 
