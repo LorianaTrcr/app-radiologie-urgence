@@ -1,3 +1,14 @@
+import os
+import sys
+import subprocess
+
+# Hack infaillible pour Streamlit Cloud : forcer l'environnement à utiliser la version "headless"
+try:
+    subprocess.call([sys.executable, "-m", "pip", "uninstall", "-y", "opencv-python"])
+    subprocess.call([sys.executable, "-m", "pip", "install", "opencv-python-headless"])
+except Exception as e:
+    pass
+
 import streamlit as st
 import torch
 import numpy as np
@@ -76,7 +87,7 @@ st.sidebar.markdown(
 
 st.sidebar.markdown("---")
 
-# 2. Disclaimer bien visible dans l'encadré bleu
+# 2. Disclaimer bien visible dans l'encadré rouge
 st.sidebar.error(
     "⚕️ **DISCLAIMER CLINIQUE**\n\n"
     "Cette application est un prototype de recherche académique. "
@@ -88,6 +99,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("**Architecture :** ResNet-50 Fine-tuné")
 st.sidebar.markdown("**Hébergement Modèle :** GitHub")
 st.sidebar.markdown("**Classes cibles :** `fractured` | `not fractured`")
+st.sidebar.markdown("**Seuil d'alerte fracture :** `30%` *(Haute sensibilité)*") # Mise en avant de l'amélioration !
 
 # ── Page Principale ──
 st.title("🦴 Radiologie d'Urgence — Détection de Fractures")
@@ -126,10 +138,20 @@ if uploaded_file is not None:
                 outputs = model(pixel_values=img_tensor.unsqueeze(0))
                 probs = torch.softmax(outputs.logits, dim=-1)[0].numpy()
 
-            pred_idx = int(np.argmax(probs))
-            pred_class = CLASS_NAMES[pred_idx]
-            confidence = float(probs[pred_idx])
             frac_prob = float(probs[FRACTURE_IDX])
+            
+            # --- EXPÉRIMENTATION (OPTION D) : SEUIL MODIFIÉ ---
+            SEUIL_URGENCE = 0.30
+            
+            if frac_prob >= SEUIL_URGENCE:
+                pred_idx = FRACTURE_IDX
+                confidence = frac_prob
+            else:
+                pred_idx = 1 # Index pour 'not fractured'
+                confidence = float(probs[1])
+                
+            pred_class = CLASS_NAMES[pred_idx]
+            # --------------------------------------------------
 
             # 4. Générer GradCAM
             img_np = np.array(image.resize((224, 224))).astype(np.float32) / 255.0
@@ -177,6 +199,6 @@ with st.expander("❓ Comment ça marche ? (Explication du modèle)"):
     **Bienvenue sur notre outil d'IA en Radiologie.**
     
     1. **L'Analyse :** Lorsque vous envoyez une image, elle est lue par notre modèle **ResNet-50**, un réseau de neurones artificiels entraîné sur des milliers de radiographies (saines et fracturées).
-    2. **La Décision :** L'IA cherche des "motifs" (patterns) invisibles à l'œil nu qui correspondent à des fractures osseuses et calcule un score de confiance.
+    2. **La Décision :** L'IA cherche des "motifs" (patterns) invisibles à l'œil nu qui correspondent à des fractures osseuses et calcule un score de confiance. Pour minimiser les risques d'erreurs médicales (faux négatifs), **le seuil de détection a été abaissé à 30%**.
     3. **L'Explicabilité (GradCAM) :** Parce qu'un médecin ne peut pas faire confiance à une "boîte noire", l'outil génère une carte de chaleur (heatmap). Les zones **rouges** vous montrent exactement où l'IA a "regardé" pour prendre sa décision !
     """)
